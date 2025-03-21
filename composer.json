@@ -1,0 +1,21 @@
+{
+    "name": "brugge-matheus/products_migration",
+    "description": "Sistema para migração de produtos de um site para outro",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/App/"
+        },
+        "files": [
+            "src/config/config.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Matheus Brugge",
+            "email": "matheusmilczwski@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/var-dumper": "^5.0"
+    }
+}
