@@ -42,6 +42,24 @@ class Connection
     }
 
     /**
+     * Executado uma query
+     * 
+     * @param string $query Query que sera executada
+     * @return array Retorna dados obtidos ou mensagem de erro
+     */
+    public function executeQuery(string $query)
+    {
+        try {
+            $connection = $this->connect();
+
+            $respone = $connection->query($query);
+            return $respone->fetchAll();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
      * Obtém dados de uma tabela com mapeamento de campos
      * 
      * @param string $table Nome da tabela
@@ -59,6 +77,9 @@ class Connection
 
         try {
             $connection = $this->connect();
+
+            // dd("SELECT {$sqlString} FROM {$table}");
+            // exit;
 
             $respone = $connection->query("SELECT {$sqlString} FROM {$table}");
             return $respone->fetchAll();
@@ -91,11 +112,10 @@ class Connection
             foreach ($data as $value) {
                 $stmt = $newDatabase->prepare("INSERT INTO {$table} ({$fieldsString}) VALUES ($placeholders) ");
                 $stmt->execute($value);
-
-                return "Migração feita com sucesso";
             }
+            echo "Migração feita com sucesso";
         } catch (PDOException $e) {
-            return $e->getMessage();
+            dd($e);
         }
     }
 }
